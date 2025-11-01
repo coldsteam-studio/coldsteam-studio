@@ -57,20 +57,6 @@ jobs:
       - name: Build Hugo site
         run: npm run build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./public
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download built site
-        uses: actions/download-artifact@v3
-        with:
-          name: github-pages
-          path: ./public
       - name: Deploy to public repo using PAT
         uses: peaceiris/actions-gh-pages@v4
         with:
