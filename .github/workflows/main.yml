@@ -20,8 +20,7 @@ env:
 
 jobs:
   build:
-    # ✅ Use AMD64 runner (supported for private repos)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest   # ✅ Always use amd64 runner (supported for private repos)
 
     steps:
       - name: Checkout source
@@ -30,26 +29,18 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
-      # Detect and install Hugo for correct architecture
       - name: Install Hugo
         run: |
-          ARCH=$(uname -m)
-          if [ "$ARCH" = "aarch64" ]; then
-            HUGO_ARCH="arm64"
-          else
-            HUGO_ARCH="amd64"
-          fi
           wget -O ${{ runner.temp }}/hugo.deb \
-            https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-${HUGO_ARCH}.deb
+            https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
           sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
-      # Install Go (for Hugo modules)
       - name: Install Go
         run: |
-          wget -O ${{ runner.temp }}/go.tar.gz https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz
+          wget -O ${{ runner.temp }}/go.tar.gz \
+            https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz
           sudo tar -C /usr/local -xzf ${{ runner.temp }}/go.tar.gz
 
-      # Cache npm dependencies
       - name: Cache npm dependencies
         uses: actions/cache@v3
         with:
@@ -78,9 +69,9 @@ jobs:
       - name: Deploy to public repo using PAT
         uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.DEPLOY_TOKEN }}   # ✅ Your fine-grained PAT
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}   # ✅ Your fine-grained PAT secret
           external_repository: coldsteam-studio/coldsteam-studio  # ✅ Public repo
           publish_dir: ./public
-          publish_branch: main                         # or gh-pages
+          publish_branch: main                         # or 'gh-pages'
           commit_message: "Deploy Hugo site: ${{ github.sha }}"
           cname: "www.example.com"                      # optional custom domain
