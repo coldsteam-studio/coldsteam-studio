@@ -66,6 +66,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Download built site
+        uses: actions/download-artifact@v3
+        with:
+          name: github-pages
+          path: ./public
       - name: Deploy to public repo using PAT
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -74,4 +79,4 @@ jobs:
           publish_dir: ./public
           publish_branch: main                         # or 'gh-pages'
           commit_message: "Deploy Hugo site: ${{ github.sha }}"
-          cname: "www.example.com"                      # optional custom domain
+          cname: "www.coldsteam.studio"                      # optional custom domain
