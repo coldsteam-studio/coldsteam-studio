@@ -1,18 +1,14 @@
-name: Deploy Hugo site to Public Repo
+name: Deploy Hugo site to GitHub Pages
 
 on:
   push:
     branches: ["main"]
-  workflow_dispatch:  # allows manual triggering
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
-
-defaults:
-  run:
-    shell: bash
 
 env:
   HUGO_ENV: production
@@ -24,7 +20,9 @@ env:
 
 jobs:
   build:
+    # ✅ Use AMD64 runner (supported for private repos)
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -32,50 +30,40 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
-      # -----------------------------
-      # Cache Hugo
-      - name: Cache Hugo
-        uses: actions/cache@v3
-        with:
-          path: /usr/local/bin/hugo
-          key: hugo-${{ env.HUGO_VERSION }}
-
+      # Detect and install Hugo for correct architecture
       - name: Install Hugo
-        if: steps.cache-hugo.outputs.cache-hit != 'true'
         run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
+          ARCH=$(uname -m)
+          if [ "$ARCH" = "aarch64" ]; then
+            HUGO_ARCH="arm64"
+          else
+            HUGO_ARCH="amd64"
+          fi
+          wget -O ${{ runner.temp }}/hugo.deb \
+            https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-${HUGO_ARCH}.deb
           sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
-      # -----------------------------
-      # Cache Go
-      - name: Cache Go
-        uses: actions/cache@v3
-        with:
-          path: /usr/local/go
-          key: go-${{ env.GO_VERSION }}
-
+      # Install Go (for Hugo modules)
       - name: Install Go
-        if: steps.cache-go.outputs.cache-hit != 'true'
         run: |
           wget -O ${{ runner.temp }}/go.tar.gz https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz
           sudo tar -C /usr/local -xzf ${{ runner.temp }}/go.tar.gz
 
-      # -----------------------------
       # Cache npm dependencies
-      - name: Cache npm
+      - name: Cache npm dependencies
         uses: actions/cache@v3
         with:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
 
-      - name: Setup Project
+      - name: Setup project
         run: npm run project-setup
 
-      - name: Install npm dependencies
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Build site
+      - name: Build Hugo site
         run: npm run build
 
       - name: Upload artifact
@@ -86,18 +74,13 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to public repo in same org with custom domain
-        id: deployment
+      - name: Deploy to public repo using PAT
         uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.GITHUB_TOKEN }}           # Default token works for same-org repo
-          external_repository: coldsteam-studio/coldsteam-studio         # Replace with your public repo
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}   # ✅ Your fine-grained PAT
+          external_repository: coldsteam-studio/coldsteam-studio  # ✅ Public repo
           publish_dir: ./public
-          publish_branch: main                                   # Or "gh-pages"
+          publish_branch: main                         # or gh-pages
           commit_message: "Deploy Hugo site: ${{ github.sha }}"
-          cname: "www.coldsteam.studio"                               # Replace with your custom domain
-
+          cname: "www.example.com"                      # optional custom domain
