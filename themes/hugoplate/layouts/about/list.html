@@ -2,8 +2,8 @@
   <!-- Banner -->
   <section class="section pt-14">
     <div class="container">
-      <div class="row justify-center">
-        <div class="lg:col-8 md:col-10 text-center">
+      <div class="row justify-center text-center">
+        <div class="lg:col-8 md:col-10">
           <h1 class="mb-4 text-h3 lg:text-h1">{{ .Title }}</h1>
           <p class="text-lg">{{ .Params.description }}</p>
         </div>
@@ -20,9 +20,9 @@
           {{ partial "image" (dict "Src" .Params.image "Alt" "Coldsteam Studios" "DisplayXL" "600x" "Class" "rounded-lg shadow-lg") }}
         </div>
         <div class="md:col-6 lg:col-5">
-          <h2 class="mb-4">Our Story</h2>
-          <p class="mb-4">{{ .Params.story | markdownify }}</p>
-          <p>{{ .Params.mission | markdownify }}</p>
+          <h2 class="mb-4 text-h4 lg:text-h2">Our Story</h2>
+          <p class="mb-4 text-lg">{{ .Params.story | markdownify }}</p>
+          <p class="text-lg">{{ .Params.mission | markdownify }}</p>
         </div>
       </div>
     </div>
@@ -30,18 +30,16 @@
   <!-- /Story -->
 
   <!-- Philosophy -->
-  <section class="section-sm bg-gradient">
+  <section class="section-sm bg-gradient text-center">
     <div class="container">
-      <div class="row justify-center text-center">
+      <div class="row justify-center">
         <div class="lg:col-8">
-          <h2 class="mb-4">Our Philosophy</h2>
-          <p class="mb-6 text-lg">
-            {{ .Params.philosophy | markdownify }}
-          </p>
+          <h2 class="mb-4 text-h4 lg:text-h2">Our Philosophy</h2>
+          <p class="mb-6 text-lg">{{ .Params.philosophy | markdownify }}</p>
           <ul class="grid md:grid-cols-2 gap-6 text-left">
             {{ range .Params.values }}
               <li class="relative pl-6 mb-4">
-                <i class="fa fa-check absolute left-0 top-1.5"></i>
+                <i class="fa fa-check absolute left-0 top-1.5 text-primary"></i>
                 <strong>{{ .title }}</strong>:
                 {{ .description }}
               </li>
@@ -58,14 +56,12 @@
     <div class="container">
       <div class="row items-center justify-between">
         <div class="md:col-6 lg:col-5">
-          <h2 class="mb-4">The Async Advantage</h2>
-          <p class="mb-4">
-            {{ .Params.async_intro | markdownify }}
-          </p>
+          <h2 class="mb-4 text-h4 lg:text-h2">The Async Advantage</h2>
+          <p class="mb-4 text-lg">{{ .Params.async_intro | markdownify }}</p>
           <ul>
             {{ range .Params.async_points }}
               <li class="relative mb-3 pl-6">
-                <i class="fa fa-clock absolute left-0 top-1.5"></i>
+                <i class="fa fa-clock absolute left-0 top-1.5 text-primary"></i>
                 {{ . | markdownify }}
               </li>
             {{ end }}
@@ -82,7 +78,7 @@
   <!-- CTA -->
   <section class="section text-center">
     <div class="container">
-      <h2 class="mb-4">
+      <h2 class="mb-4 text-h4 lg:text-h2">
         Let’s make your next technical decision with confidence.
       </h2>
       <p class="mb-8 text-lg">

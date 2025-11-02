@@ -3,14 +3,10 @@
   {{ with .Params.banner }}
     <section class="section pt-14">
       <div class="container">
-        <div class="row justify-center">
-          <div class="lg:col-7 md:col-9 mb-8 text-center">
-            <h1 class="mb-4 text-h3 lg:text-h1">
-              {{ .title | markdownify }}
-            </h1>
-            <p class="mb-8">
-              {{ .content | markdownify }}
-            </p>
+        <div class="row justify-center text-center">
+          <div class="lg:col-8 md:col-10">
+            <h1 class="mb-4 text-h3 lg:text-h1">{{ .title | markdownify }}</h1>
+            <p class="text-lg mb-8">{{ .content | markdownify }}</p>
             {{ with .button }}
               {{ if .enable }}
                 <a class="btn btn-primary" href="{{ .link | absURL }}">
@@ -20,8 +16,8 @@
             {{ end }}
           </div>
           {{ if .image }}
-            <div class="col-12">
-              {{ partial "image" (dict "Src" .image "Alt" "Services banner" "Loading" "eager" "Class" "mx-auto lg:!max-w-[800px]" "DisplayXL" "800x") }}
+            <div class="col-12 mt-10">
+              {{ partial "image" (dict "Src" .image "Alt" "Services banner" "Loading" "eager" "Class" "mx-auto rounded-lg shadow-lg lg:!max-w-[800px]" "DisplayXL" "800x") }}
             </div>
           {{ end }}
         </div>
@@ -36,21 +32,22 @@
       <div class="container">
         <div class="row items-center justify-between">
           <div
-            class="mb:md-0 {{ if not (modBool $i 2) }}
+            class="{{ if not (modBool $i 2) }}
               md:order-2
-            {{ end }} md:col-5 mb-6">
-            {{ partial "image" (dict "Src" .image "Alt" "Service image" "DisplayXL" "520x" "DisplayLG" "425x" "DisplayMD" "360x") }}
+            {{ end }} md:col-5 mb-8 md:mb-0">
+            {{ partial "image" (dict "Src" .image "Alt" "Service image" "DisplayXL" "520x" "DisplayLG" "425x" "DisplayMD" "360x" "Class" "rounded-lg shadow-lg") }}
           </div>
           <div
             class="{{ if not (modBool $i 2) }}
               md:order-1
             {{ end }} md:col-7 lg:col-6">
-            <h2 class="mb-4">{{ .title | markdownify }}</h2>
-            <p class="mb-8 text-lg">{{ .content | markdownify }}</p>
+            <h2 class="mb-4 text-h4 lg:text-h2">{{ .title | markdownify }}</h2>
+            <p class="mb-6 text-lg">{{ .content | markdownify }}</p>
             <ul>
               {{ range .bulletpoints }}
                 <li class="relative mb-4 pl-6">
-                  <i class="fa fa-check absolute left-0 top-1.5"></i>
+                  <i
+                    class="fa fa-check absolute left-0 top-1.5 text-primary"></i>
                   {{ . | markdownify }}
                 </li>
               {{ end }}
@@ -72,14 +69,14 @@
   <!-- CTA -->
   <section class="section text-center">
     <div class="container">
-      <h2 class="mb-4">Ready to gain technical clarity?</h2>
+      <h2 class="mb-4 text-h4 lg:text-h2">Ready to gain technical clarity?</h2>
       <p class="mb-8 text-lg">
         Get an independent, asynchronous review of your codebase or candidate —
         no calls, no meetings, just insight.
       </p>
-      <a href="/contact" class="btn btn-primary"
-        >Book a Review <i class="fa fa-arrow-right pl-2"></i
-      ></a>
+      <a href="/contact" class="btn btn-primary">
+        Book a Review <i class="fa fa-arrow-right pl-2"></i>
+      </a>
     </div>
   </section>
   <!-- /CTA -->

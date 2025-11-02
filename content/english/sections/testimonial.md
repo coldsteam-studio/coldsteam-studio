@@ -1,31 +1,21 @@
 ---
-enable: true
-title: "What Users Are Saying About Hugoplate"
-description: "Don't just take our word for it - hear from some of our satisfied users!  Check out some of our testimonials below to see what others are saying about Hugoplate."
+enable: false
+title: "What Our Clients Say"
+description: "We work with technology leaders and investors who value precision, clarity, and depth in technical decision-making."
 
-# Testimonials
 testimonials:
-  - name: "Marvin McKinney"
-    designation: "Web Designer"
-    avatar: "/images/avatar-sm.png"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
+  - name: "Sophia Reyes"
+    designation: "Partner, Elevate Ventures"
+    content: "Coldsteam’s async due diligence process gave us exceptional clarity — structured communication and deeply insightful analysis."
+    avatar: "images/clients/sophia.jpg"
 
-  - name: "Marvin McKinney"
-    designation: "Web Designer"
-    avatar: "/images/avatar-sm.png"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
+  - name: "Mark Jensen"
+    designation: "CTO, Fintrix"
+    content: "Their asynchronous workflow was seamless. Every report was clear, actionable, and professional — it felt like having an expert CTO on call."
+    avatar: "images/clients/mark.jpg"
 
-  - name: "Marvin McKinney"
-    designation: "Web Designer"
-    avatar: "/images/avatar-sm.png"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
-
-  - name: "Marvin McKinney"
-    designation: "Web Designer"
-    avatar: "/images/avatar-sm.png"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
-
-# don't create a separate page
-build:
-  render: "never"
+  - name: "Lena Wu"
+    designation: "Founder, OpsStream"
+    content: "Working with Coldsteam Studio was refreshingly efficient. Their async format fit perfectly with our distributed team."
+    avatar: "images/clients/lena.jpg"
 ---
