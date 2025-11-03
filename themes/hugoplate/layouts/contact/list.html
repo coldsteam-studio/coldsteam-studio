@@ -6,46 +6,38 @@
     <div class="container">
       <div class="row">
         <div class="md:col-10 lg:col-6 mx-auto">
-          <form action="{{ site.Params.contact_form_action }}" method="POST">
-            <div class="mb-6">
-              <label for="name" class="form-label">
-                Full Name <span class="text-red-500">*</span>
-              </label>
-              <input
-                id="name"
-                name="name"
-                class="form-input"
-                placeholder="John Doe"
-                type="text" />
-            </div>
-            <div class="mb-6">
-              <label for="email" class="form-label">
-                Working Mail <span class="text-red-500">*</span>
-              </label>
-              <input
-                id="email"
-                name="email"
-                class="form-input"
-                placeholder="john.doe@email.com"
-                type="email" />
-            </div>
-            <div class="mb-6">
-              <label for="message" class="form-label">
-                Anything else? <span class="text-red-500">*</span>
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                class="form-input"
-                placeholder="Message goes here..."
-                rows="8"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+          <iframe
+            data-tally-src="https://tally.so/embed/5BKX4N?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            loading="lazy"
+            width="100%"
+            height="895"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Project Intake"></iframe>
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+    var d = document,
+      w = "https://tally.so/widgets/embed.js",
+      v = function () {
+        "undefined" != typeof Tally
+          ? Tally.loadEmbeds()
+          : d
+              .querySelectorAll("iframe[data-tally-src]:not([src])")
+              .forEach(function (e) {
+                e.src = e.dataset.tallySrc;
+              });
+      };
+    if ("undefined" != typeof Tally) v();
+    else if (d.querySelector('script[src="' + w + '"]') == null) {
+      var s = d.createElement("script");
+      ((s.src = w), (s.onload = v), (s.onerror = v), d.body.appendChild(s));
+    }
+  </script>
 
   <!-- google map -->
   {{ with site.Params.google_map }}
