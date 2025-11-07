@@ -35,8 +35,7 @@
 
 
 <!-- google tag manager -->
-{{ partialCached "gtm.html" . }}
-
+{{/* {{ partialCached "gtm.html" . }} */}}
 
 <!-- search index -->
 {{ partial "search-index.html" . }}
@@ -52,7 +51,8 @@
 {{/* {{ partialCached "plausible-analytics.html" . }} */}}
 
 <!-- Counter Analytics -->
-{{/* {{ partialCached "counter-analytics.html" . }} */}}
+{{ partialCached "counter-analytics.html" . }}
+
 
 <!-- Crisp Chat -->
 {{/* {{ partialCached "crisp-chat.html" . }} */}}
