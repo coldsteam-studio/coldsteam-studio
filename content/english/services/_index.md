@@ -1,39 +1,64 @@
 ---
 title: "Services"
-description: "Independent technical oversight and vetting for founders and small teams — async, clear, and focused."
 banner:
-  title: "Independent Technical Oversight for Founders"
-  content: "Coldsteam Studios helps you validate software built by agencies or freelancers, and make confident hiring decisions — all asynchronously."
-  # image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=1600&q=80"
+  title: "Async Tech Reviews for Startups"
+  content: "Get independent, asynchronous insight into your codebase, architecture, and product roadmap."
+  image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80"
   button:
     enable: true
     label: "Book a Review"
     link: "/contact"
 
 services:
-  - title: "Technical Oversight & Review"
-    content: "Get a clear, unbiased audit of your codebase or product before launch. Perfect for founders working with external agencies or freelancers."
-    image: "https://images.unsplash.com/photo-1551836022-4c4c79ecde51?auto=format&fit=crop&w=1600&q=80"
-    bulletpoints:
-      - "Code and architecture review — no setup required"
-      - "Risk grading and prioritized recommendations"
-      - "Async summary video or written debrief"
-      - "Delivered within 3–5 business days"
+  - title: "Code & Architecture Services"
+    content: "Tailored technical assessments to strengthen your code and architecture."
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
+    items:
+      - name: "Code / Architecture Review"
+        price: "from €750"
+        duration: "48–72 h"
+        description: "Includes codebase assessment, architecture diagrams, and recommendations report."
+      - name: "Technical Product Roadmap Review"
+        price: "from €1000"
+        duration: "3–4 days"
+        description: "Detailed review of roadmap, product strategy feedback, and risk assessment."
     button:
-      enable: true
-      label: "Learn More"
+      enable: false
+      label: "Contact Us"
       link: "/contact"
 
-  - title: "Technical Interviewing & Vendor Vetting"
-    content: "Avoid costly hiring or vendor mistakes. We conduct technical interviews and vendor reviews so you can make decisions with confidence."
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80"
-    bulletpoints:
-      - "Technical interviews with detailed scorecards"
-      - "Vendor proposal and contract reviews"
-      - "Recommendations for stack and tooling choices"
-      - "Turnaround in 48 hours"
+  - title: "Agency & Interview Services"
+    content: "Validate agency work and conduct technical interviews efficiently."
+    image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1200&q=80"
+    items:
+      - name: "Agency Work Product Validation"
+        price: "from €1,200"
+        duration: "72 h"
+        description: "Review of deliverables, quality check, and feedback report."
+      - name: "Technical Vendor Proposal Review"
+        price: "from €600"
+        duration: "48 h"
+        description: "Evaluation of vendor proposals, scoring, and recommendation summary."
+      - name: "Technical Interview (per engineer)"
+        price: "from €400"
+        duration: "48 h"
+        description: "Structured technical interview with written assessment and recommendations."
     button:
-      enable: true
-      label: "Request a Vetting"
+      enable: false
+      label: "Contact Us"
+      link: "/contact"
+
+  - title: "Subscription Packages"
+    content: "Ongoing async support and strategic oversight for active startups and scale-ups."
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80"
+    items:
+      - name: "Async Tech Advisory"
+        price: "from €2,500/month"
+        duration: "1 async Code / Architecture reviews per week + priority turnaround"
+        description: "1 async Code / Architecture reviews per week + priority turnaround"
+        annotation: "Includes roadmap guidance, architecture feedback, and advisory support."
+    button:
+      enable: false
+      label: "Contact Us"
       link: "/contact"
 ---

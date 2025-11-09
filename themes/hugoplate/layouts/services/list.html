@@ -28,37 +28,68 @@
 
   <!-- Services -->
   {{ range $i, $e := .Params.services }}
-    <section class="section-sm {{ if (modBool $i 2) }}bg-gradient{{ end }}">
-      <div class="container">
-        <div class="row items-center justify-between">
+    <section class="section-sm {{ if modBool $i 2 }}bg-gradient{{ end }}">
+      <div class="container mx-auto px-6">
+        <div
+          class="flex flex-col md:flex-row items-stretch justify-between gap-8">
+          <!-- Service Image + CTA -->
           <div
             class="{{ if not (modBool $i 2) }}
               md:order-2
-            {{ end }} md:col-5 mb-8 md:mb-0">
-            {{ partial "image" (dict "Src" .image "Alt" "Service image" "DisplayXL" "520x" "DisplayLG" "425x" "DisplayMD" "360x" "Class" "rounded-lg shadow-lg") }}
+            {{ end }} md:w-5/12 flex flex-col items-center">
+            {{ partial "image" (dict
+              "Src" .image
+              "Alt" "Service image"
+              "DisplayXL" "520x"
+              "DisplayLG" "425x"
+              "DisplayMD" "360x"
+              "Class" "rounded-lg shadow-lg w-full object-cover aspect-[4/3]")
+            }}
+
+
+            <!-- Call to Action Button -->
+            <div class="mt-4">
+              {{ with .button }}
+                {{ if .enable }}
+                  <a
+                    class="btn btn-primary inline-block"
+                    href="{{ .link | absURL }}">
+                    {{ .label }} <i class="fa fa-arrow-right pl-2"></i>
+                  </a>
+                {{ end }}
+              {{ end }}
+            </div>
           </div>
+
+          <!-- Service Content -->
           <div
             class="{{ if not (modBool $i 2) }}
               md:order-1
-            {{ end }} md:col-7 lg:col-6">
-            <h2 class="mb-4 text-h4 lg:text-h2">{{ .title | markdownify }}</h2>
-            <p class="mb-6 text-lg">{{ .content | markdownify }}</p>
-            <ul>
-              {{ range .bulletpoints }}
+            {{ end }} md:w-7/12 lg:w-6/12 flex flex-col justify-center">
+            <h2 class="mb-4 text-h4 lg:text-h2 text-gray-900 font-bold">
+              {{ .title | markdownify }}
+            </h2>
+            <p class="mb-6 text-lg text-gray-600">
+              {{ .content | markdownify }}
+            </p>
+            <ul class="list-none">
+              {{ range .items }}
                 <li class="relative mb-4 pl-6">
                   <i
                     class="fa fa-check absolute left-0 top-1.5 text-primary"></i>
-                  {{ . | markdownify }}
+                  <strong>{{ .name }}</strong>
+                  <p class="mt-1 text-gray-700">{{ .description }}</p>
+                  {{ if .annotation }}
+                    <p class="mt-1 text-gray-500">
+                      {{ .annotation }}
+                    </p>
+                  {{ end }}
+                  <p class="mt-1 text-gray-500">
+                    {{ .price }}
+                  </p>
                 </li>
               {{ end }}
             </ul>
-            {{ with .button }}
-              {{ if .enable }}
-                <a class="btn btn-primary mt-6" href="{{ .link | absURL }}">
-                  {{ .label }} <i class="fa fa-arrow-right pl-2"></i>
-                </a>
-              {{ end }}
-            {{ end }}
           </div>
         </div>
       </div>
