@@ -5,22 +5,23 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 env:
   HUGO_ENV: production
   HUGO_VERSION: "0.151.0"
-  GO_VERSION: "1.23.3"
   TINA_CLIENT_ID: ${{ secrets.TINA_CLIENT_ID }}
   TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
   TINA_SEARCH_TOKEN: ${{ secrets.TINA_SEARCH_TOKEN }}
 
 jobs:
   build:
-    runs-on: ubuntu-latest   # ✅ Always use amd64 runner (supported for private repos)
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source
@@ -29,24 +30,23 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
       - name: Install Hugo
         run: |
           wget -O ${{ runner.temp }}/hugo.deb \
             https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
           sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
-      - name: Install Go
-        run: |
-          wget -O ${{ runner.temp }}/go.tar.gz \
-            https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz
-          sudo tar -C /usr/local -xzf ${{ runner.temp }}/go.tar.gz
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
+          node-version: "lts/*"
+          cache: "npm"
 
       - name: Setup project
         run: npm run project-setup
@@ -57,12 +57,11 @@ jobs:
       - name: Build Hugo site
         run: npm run build
 
-      - name: Deploy to public repo using PAT
+      - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.DEPLOY_TOKEN }}   # ✅ Your fine-grained PAT secret
-          external_repository: coldsteam-studio/coldsteam-studio  # ✅ Public repo
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          publish_branch: main                         # or 'gh-pages'
+          publish_branch: gh-pages
           commit_message: "Deploy Hugo site: ${{ github.sha }}"
-          cname: "www.coldsteam.studio"                      # optional custom domain
+          cname: "www.coldsteam.studio"
